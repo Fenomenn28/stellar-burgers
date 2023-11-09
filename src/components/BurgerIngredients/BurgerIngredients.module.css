@@ -1,0 +1,53 @@
+.BurgerIngredients {
+  width: 600px;
+}
+
+.title{
+  color: #F2F2F3;
+  font-family: 'JetBrains Mono', Arial, sans-serif;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 40px;
+  margin: 40px 0 20px 0;
+}
+
+.departmentsMenu{
+  max-height: 718px;
+  overflow-y: auto;
+}
+
+.departmentsMenu::-webkit-scrollbar{
+  width: 8px;
+}
+
+.departmentsMenu::-webkit-scrollbar-thumb{
+  border-radius: 0;
+  border: none;
+}
+
+.departmentInfo{
+  color: #F2F2F3;
+  font-family: 'JetBrains Mono', Arial, sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 30px; /* 125% */
+  margin: 40px 0 24px 0;
+}
+
+.menu{
+  display: grid; 
+  grid-template-columns: 1fr 1fr;
+  gap: 32px 24px;
+  justify-content: center;
+}
+
+.menu:nth-child(1n){
+  margin-left: 16px;
+}
+
+.menu:nth-child(2n){
+  margin-right: 8px;
+}
+

@@ -1,0 +1,51 @@
+.burgerConstructor{
+  display: flex; 
+  flex-direction: column;
+  width: 600px;
+}
+
+.list{
+  list-style-image: url();
+  margin: 0 0 0 16px;
+  padding: 0 8px 0 0;
+  list-style: none;
+  overflow-y: auto;
+  max-height: 464px;
+}
+
+.list::-webkit-scrollbar{
+  width: 8px;
+}
+
+.list::-webkit-scrollbar-thumb{
+  border-radius: 0;
+  border: none;
+}
+
+.listItem{
+  width: 568px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.listItem:last-child{
+  margin-bottom: 0;
+}
+
+.firstBun{
+  margin: 100px 16px 16px 50px;
+}
+
+.secondBun{
+  margin: 16px 16px 40px 50px;
+} 
+
+.orderBox{
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  margin: 0 16px 0 0;
+  gap: 40px;
+}
+
