@@ -1,15 +1,21 @@
 import { Tab  } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './BurgerIngredients.module.css';
 import React from 'react'; 
-import Ingredients from './Ingredients/Ingredients';
-import PropTypes from 'prop-types';
+import Ingredient from './Ingredient/Ingredient';
+import {ingredientsPropType} from '../../utils/prop-types';
 
 function BurgerIngredients (props) {
-    const [current, setCurrent] = React.useState('one')
+    const [current, setCurrent] = React.useState('one');
+    const [array, setArray] = React.useState({loading: false});
+    
+    React.useEffect(() =>{
+      const bun = props.api.filter((item) => item.type === 'bun');
+      const main = props.api.filter((item) => item.type === 'main');
+      const sauce = props.api.filter((item) => item.type === 'sauce');
 
-    const bun = props.api.filter((item) => item.type === 'bun');
-    const main = props.api.filter((item) => item.type === 'main');
-    const sauce = props.api.filter((item) => item.type === 'sauce');
+      setArray({bun, main, sauce, loading: true})
+    },[])
+    
     
     return (
       <section className={styles.BurgerIngredients}>
@@ -27,32 +33,34 @@ function BurgerIngredients (props) {
         </Tab>
         </div>
 
-
-        <div className={`${styles.departmentsMenu} custom-scroll`}>
-          {/* Булки */}
-          <p className={styles.departmentInfo}>Булки</p>
-          <div className={styles.menu}>
-            {bun.map((item) => <Ingredients ingredient={item} />)}
+        {array.loading && 
+          <div className={`${styles.departments} custom-scroll`}>
+            {/* Булки */}
+            <p className={styles.departmentInfo}>Булки</p>
+            <div className={styles.departmentGrid}>
+              {array.bun.map((item) => <Ingredient ingredient={item} />)}
+            </div>
+            {/* Соусы */}
+            <p className={styles.departmentInfo}>Соусы</p>
+            <div className={styles.departmentGrid}>
+              {array.sauce.map((item) => <Ingredient ingredient={item} />)}
+            </div>
+            {/* Основное */}
+            <p className={styles.departmentInfo}>Основное</p>
+            <div className={styles.departmentGrid}>
+              {array.main.map((item) => <Ingredient ingredient={item} />)}
+            </div>
           </div>
-          {/* Соусы */}
-          <p className={styles.departmentInfo}>Соусы</p>
-          <div className={styles.menu}>
-            {sauce.map((item) => <Ingredients ingredient={item} />)}
-          </div>
-          {/* Основное */}
-          <p className={styles.departmentInfo}>Основное</p>
-          <div className={styles.menu}>
-            {main.map((item) => <Ingredients ingredient={item} />)}
-          </div>
-        </div>
+        }
       </section>
     )
 }
 
 BurgerIngredients.propTypes = {
-  api: PropTypes.array
-}; 
+api: ingredientsPropType.isRequired
+};
 
 export default BurgerIngredients;
+
 
 

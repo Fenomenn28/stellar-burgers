@@ -1,0 +1,22 @@
+.popup{
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  width: 720px;
+  max-height: 718px;
+  padding: 40px 40px 60px 40px;
+  box-sizing:border-box;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 40px;
+  background-color: #1C1C21;
+  box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.04), 0px 4px 8px 0px rgba(0, 0, 0, 0.04), 0px 16px 24px 0px rgba(0, 0, 0, 0.04), 0px 24px 32px 0px rgba(0, 0, 0, 0.04);
+  z-index: 3;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
