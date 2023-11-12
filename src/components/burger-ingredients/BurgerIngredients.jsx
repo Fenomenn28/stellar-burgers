@@ -1,20 +1,21 @@
 import { Tab  } from '@ya.praktikum/react-developer-burger-ui-components';
-import styles from './BurgerIngredients.module.css';
+import styles from './burger-ingredients.module.css';
 import React from 'react'; 
-import Ingredient from './Ingredient/Ingredient';
-import {ingredientsPropType} from '../../utils/prop-types';
+import Ingredient from './ingredient/Ingredient';
+import {ingredientsArrayType} from '../../utils/prop-types';
 
 function BurgerIngredients (props) {
     const [current, setCurrent] = React.useState('one');
     const [array, setArray] = React.useState({loading: false});
     
     React.useEffect(() =>{
-      const bun = props.api.filter((item) => item.type === 'bun');
-      const main = props.api.filter((item) => item.type === 'main');
-      const sauce = props.api.filter((item) => item.type === 'sauce');
+      const bun = props.ingredients.filter((item) => item.type === 'bun');
+      const main = props.ingredients.filter((item) => item.type === 'main');
+      const sauce = props.ingredients.filter((item) => item.type === 'sauce');
 
       setArray({bun, main, sauce, loading: true})
     },[])
+    
     
     
     return (
@@ -38,17 +39,17 @@ function BurgerIngredients (props) {
             {/* Булки */}
             <p className={styles.departmentInfo}>Булки</p>
             <div className={styles.departmentGrid}>
-              {array.bun.map((item) => <Ingredient ingredient={item} />)}
+              {array.bun.map((item) => <Ingredient ingredient={item} key={item._id}/>)}
             </div>
             {/* Соусы */}
             <p className={styles.departmentInfo}>Соусы</p>
             <div className={styles.departmentGrid}>
-              {array.sauce.map((item) => <Ingredient ingredient={item} />)}
+              {array.sauce.map((item) => <Ingredient ingredient={item} key={item._id}/>)}
             </div>
             {/* Основное */}
             <p className={styles.departmentInfo}>Основное</p>
             <div className={styles.departmentGrid}>
-              {array.main.map((item) => <Ingredient ingredient={item} />)}
+              {array.main.map((item) => <Ingredient ingredient={item} key={item._id}/>)}
             </div>
           </div>
         }
@@ -57,7 +58,7 @@ function BurgerIngredients (props) {
 }
 
 BurgerIngredients.propTypes = {
-api: ingredientsPropType.isRequired
+  ingredients: ingredientsArrayType.isRequired
 };
 
 export default BurgerIngredients;

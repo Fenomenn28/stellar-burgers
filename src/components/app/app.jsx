@@ -1,35 +1,39 @@
 import styles from "./app.module.css";
-import AppHeader from "../AppHeader/AppHeader";
+import AppHeader from "../app-header/AppHeader";
 import { menu } from "../../utils/data";
-import BurgerIngredients from "../BurgerIngredients/BurgerIngredients"
-import BurgerConstructor from "../burgerConstructor/burgerConstructor"
+import BurgerIngredients from "../burger-ingredients/BurgerIngredients"
+import BurgerConstructor from "../burger-constructor/BurgerConstructor"
 import { useEffect, useState } from "react";
-import {Modal} from '../../utils/prop-types';
 
 
 
 function App() {
   const [state, setState] = useState({});
   
-  useEffect(() => {
-    fetch(menu)
-    .then((res) => res.json())
+
+
+  useEffect(() => { 
+  fetch(menu) 
     .then((res) => {
-      setState({...res})
+      if (res.ok) {
+        return res.json();
+      }
+      throw new Error(`Ошибка ${res.status}`);
     })
-    .catch((err) => {
-      console.log('C API беда 😨' + err)
+    .then((res) => {
+      setState({...res});
     })
-  },[])
+    .catch(console.error); 
+}, []);
 
   return (
     <>
       <AppHeader />
       {state.data && 
-        <div className={styles.content}>
-          <BurgerIngredients api={state.data}/>
-          <BurgerConstructor api={state.data}/>
-        </div>
+        <main className={styles.content}>
+          <BurgerIngredients ingredients={state.data}/>
+          <BurgerConstructor ingredients={state.data}/>
+        </main>
       }
     </>
   );

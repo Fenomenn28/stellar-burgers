@@ -17,11 +17,11 @@
   overflow-y: auto;
 }
 
-.departmentsMenu::-webkit-scrollbar{
+.departments::-webkit-scrollbar{
   width: 8px;
 }
 
-.departmentsMenu::-webkit-scrollbar-thumb{
+.departments::-webkit-scrollbar-thumb{
   border-radius: 0;
   border: none;
 }
@@ -38,16 +38,13 @@
 
 .departmentGrid{
   display: grid; 
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 272px 272px;
   gap: 32px 24px;
-  justify-content: center;
+  margin: 0 0 0 16px;
+
 }
 
-.menu:nth-child(1n){
-  margin-left: 16px;
-}
 
-.menu:nth-child(2n){
-  margin-right: 8px;
-}
+
+
 

@@ -1,0 +1,57 @@
+.burgerConstructor{
+  display: flex; 
+  flex-direction: column;
+  align-items: flex-end;
+  width: 600px;
+  height: 863px;
+  box-sizing: border-box;
+  padding: 100px 0 3px 16px;
+}
+
+.burgerConstructor > :nth-child(2n+1){
+  margin-right: 17px;
+}
+
+.list{
+  padding: 0 8px 0 0;
+  margin: 16px 0 16px 0;
+  gap: 16px;
+  list-style: none;
+  overflow-y: auto;
+  max-height: 464px;
+}
+
+.list::-webkit-scrollbar{
+  width: 8px;
+}
+
+.list::-webkit-scrollbar-thumb{
+  border-radius: 0;
+  border: none;
+}
+
+.listItem{
+  width: 568px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.listItem:last-child{
+  margin-bottom: 0;
+}
+
+
+.orderBox{
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  margin: 40px 16px 0 0;
+  gap: 40px;
+}
+
+.priceBox{
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
