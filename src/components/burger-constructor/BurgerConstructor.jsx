@@ -4,11 +4,17 @@ import {ingredientsArrayType} from '../../utils/prop-types';
 import useModal from '../../hooks/useModal';
 import OrderDetails from './order-details/OrderDetails';
 import Modal from '../modal/Modal';
+import React from 'react';
 
 
 function BurgerConstructor (props) {
   
   const { isModalOpen, openModal, closeModal } = useModal();
+  const [ingredients, setIngredients] = React.useState([]);
+
+  React.useEffect(() => {
+    setIngredients(props.ingredients.filter((item) => item.type !== 'bun')); 
+  },[]);
   
   const modal = (
     <Modal close={closeModal}>
@@ -27,7 +33,7 @@ function BurgerConstructor (props) {
           thumbnail={"https://code.s3.yandex.net/react/code/bun-02.png"}
         />
       <ul className={`${styles.list} custom-scroll`}>
-        {props.ingredients.map((items) => (
+        {ingredients.map((items) => (
           <li className={styles.listItem} key={items._id}>
             <DragIcon type="primary" />
             <ConstructorElement

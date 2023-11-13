@@ -22,7 +22,7 @@ function BurgerIngredients (props) {
       <section className={styles.BurgerIngredients}>
         {/* Навигация */}
         <h1 className={styles.title}>Соберите бургер</h1>
-        <div style={{ display: 'flex' }}>
+        <div className={styles.tab}>
         <Tab value="one" active={current === 'one'} onClick={setCurrent}>
           Булки
         </Tab>

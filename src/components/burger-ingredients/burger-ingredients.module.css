@@ -12,6 +12,10 @@
   margin: 40px 0 20px 0;
 }
 
+.tab{
+  display: flex;
+}
+
 .departments{
   max-height: 718px;
   overflow-y: auto;
