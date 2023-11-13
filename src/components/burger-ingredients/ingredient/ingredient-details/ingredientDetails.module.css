@@ -1,0 +1,26 @@
+.popupImage{
+  width: 480px;
+  height: 240px;
+  margin: 0 0 16px 0;
+}
+
+.popupName{
+  margin: 0 0 32px 0;
+}
+
+.popupList{
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 20px;
+  text-align: center;
+}
+
+.listItem{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 112px;
+  height: 56px;
+}
