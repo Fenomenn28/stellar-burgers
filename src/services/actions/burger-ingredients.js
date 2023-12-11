@@ -1,3 +1,4 @@
+import { checkResponse } from '../../utils/data';
 export const GET_INGREDIENTS = 'GET_INGREDIENTS';
 export const GET_SELECTED_INGREDIENT = 'GET_SELECTED_INGREDIENT';
 export const DELETE_SELECTED_INGREDIENT = 'DELETE_SELECTED_INGREDIENT';
@@ -15,12 +16,7 @@ export  const getSelectedIngredient = (ingredient) => ({
 export function getIngredients (address) {
     return function(dispatch){
       fetch(address) 
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        throw new Error(`Ошибка ${res.status}`);
-      })
+      .then(checkResponse)
       .then((res) => {
         dispatch({
           type: GET_INGREDIENTS,
@@ -30,3 +26,4 @@ export function getIngredients (address) {
       .catch(console.error); 
     }
   }
+

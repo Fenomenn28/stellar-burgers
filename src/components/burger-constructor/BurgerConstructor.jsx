@@ -6,7 +6,7 @@ import Modal from '../modal/Modal';
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useDrop} from 'react-dnd';
-import { order } from '../../utils/data';
+import { BASE_URL } from '../../utils/data';
 import { sendOrderData } from '../../services/actions/burger-constructor';
 import ConstructorIngredient from './constructor-ingredient/ConstructorIngredient';
 
@@ -58,7 +58,7 @@ function BurgerConstructor ( ) {
   )
 
   const postAndOpenPopup = () => {
-    dispatch(sendOrderData(order, burgerConstructorArray, currentBun));
+    dispatch(sendOrderData(BASE_URL + '/orders', burgerConstructorArray, currentBun));
     openModal()
   } 
 

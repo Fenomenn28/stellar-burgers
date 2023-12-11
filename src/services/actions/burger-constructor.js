@@ -1,8 +1,10 @@
+import { checkResponse } from '../../utils/data';
 export const ADD_INGREDIENT = 'ADD_INGREDIENT';
 export const GET_ORDER_DATA = 'GET_ORDER_NUMBER';
 export const DELETE_INGREDIENT = 'DELET_INGREDIENT';
 export const ADD_SELECTED_BUN = 'ADD_SELECTED_BUN';
 export const MOVE_CARD = 'MOVE_CARD';
+
 
 export const deletIngredient = (key) => ({
   type: DELETE_INGREDIENT,
@@ -24,12 +26,7 @@ export const sendOrderData = (address, ingredientsArray, bun) => {
       'Content-Type': 'application/json; charset=UTF-8'
       }
     })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      throw new Error(`Ошибка ${res.status}`);
-    })
+    .then(checkResponse)
     .then((res) => {
       dispatch({
         type: GET_ORDER_DATA,

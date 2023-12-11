@@ -6,12 +6,13 @@ import {
   MOVE_CARD
 } from '../actions/burger-constructor';
 
+
 const initialState = {
   burgerConstructorArray: [],
   currentBun: {
-    text: 'Краторная булка N-200i',
-    price: 1255,
-    thumbnail: 'https://code.s3.yandex.net/react/code/bun-02.png'
+    text: 'Перетяните булочку сюда',
+    price: 0,
+    thumbnail: 'https://tehtsk.com/wp-content/uploads/2020/04/source.gif'
   },
   orderData: {
     name: null,
@@ -34,9 +35,9 @@ function burgerConstructor(state = initialState, action) {
         ...state,
         burgerConstructorArray: [],
         currentBun: {
-          text: 'Краторная булка N-200i',
-          price: 1255,
-          thumbnail: 'https://code.s3.yandex.net/react/code/bun-02.png'
+          text: 'Перетяните булочку сюда',
+          price: 0,
+          thumbnail: 'https://tehtsk.com/wp-content/uploads/2020/04/source.gif'
         },
         orderData: {
           name: action.name,

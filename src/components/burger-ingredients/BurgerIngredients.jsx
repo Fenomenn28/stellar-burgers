@@ -3,7 +3,7 @@ import styles from './burger-ingredients.module.css';
 import React from 'react'; 
 import Ingredient from './ingredient/Ingredient';
 
-import { menu } from "../../utils/data";
+import { BASE_URL } from "../../utils/data";
 import { useDispatch, useSelector } from 'react-redux';
 import { useInView } from 'react-intersection-observer';
 import { getIngredients } from '../../services/actions/burger-ingredients';
@@ -22,7 +22,7 @@ function BurgerIngredients () {
   const { ref: refMain, inView: inViewMain } = useInView({ threshold: 0.4 });
 
   React.useEffect(() => {
-    dispatch(getIngredients(menu));
+    dispatch(getIngredients(BASE_URL + '/ingredients'));
   }, [])
 
   React.useEffect(() =>{
