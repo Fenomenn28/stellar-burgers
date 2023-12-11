@@ -4,14 +4,37 @@ import "./index.css";
 import App from "./components/app/App";
 import reportWebVitals from "./reportWebVitals";
 
+import { Provider } from "react-redux";
+import { configureStore } from '@reduxjs/toolkit';
+import { combineReducers } from 'redux';
+import burgerIngredients from './services/reducers/burger-ingredients';
+import burgerConstructor from "./services/reducers/burger-constructor";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+
+const rootReducer = combineReducers({
+  burgerIngredients,
+  burgerConstructor
+});
+
+const store = configureStore({
+  reducer: rootReducer,
+  devTools: process.env.NODE_ENV !== 'production'
+}) 
+
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <DndProvider backend={HTML5Backend}>
+  <Provider store={store}>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </Provider>
+  </DndProvider>,
   document.getElementById("root")
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+
 reportWebVitals();
+
+
+

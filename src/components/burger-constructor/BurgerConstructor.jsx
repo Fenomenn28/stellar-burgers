@@ -1,64 +1,118 @@
-import { ConstructorElement, DragIcon, Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import styles from './burger-constructor.module.css';
-import {ingredientsArrayType} from '../../utils/prop-types'; 
+import { ConstructorElement, Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import styles from './burger-constructor.module.css'; 
 import useModal from '../../hooks/useModal';
 import OrderDetails from './order-details/OrderDetails';
 import Modal from '../modal/Modal';
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useDrop} from 'react-dnd';
+import { BASE_URL } from '../../utils/data';
+import { sendOrderData } from '../../services/actions/burger-constructor';
+import ConstructorIngredient from './constructor-ingredient/ConstructorIngredient';
 
 
-function BurgerConstructor (props) {
-  
+import { 
+  ADD_INGREDIENT,  
+  ADD_SELECTED_BUN,
+} from '../../services/actions/burger-constructor';
+
+
+////////////////////////////////////////////////////////////////////////
+function BurgerConstructor ( ) {
   const { isModalOpen, openModal, closeModal } = useModal();
-  const [ingredients, setIngredients] = React.useState([]);
 
-  React.useEffect(() => {
-    setIngredients(props.ingredients.filter((item) => item.type !== 'bun')); 
-  },[]);
+  {/* Получение переменных с хранилища */}
+  const {
+    burgerConstructorArray, 
+    currentBun
+  } = useSelector(state => ({
+    burgerConstructorArray: state.burgerConstructor.burgerConstructorArray,
+    currentBun: state.burgerConstructor.currentBun
+  }));
   
+  const dispatch = useDispatch()
+  
+  {/* useDrop */}
+  const [,dropRef] = useDrop({
+    accept: 'ingredient',
+    drop(item) {
+      if (item.type !== 'bun'){
+        dispatch({
+          type: ADD_INGREDIENT,
+          ingredient: item
+        })
+      } else {
+        dispatch({
+          type: ADD_SELECTED_BUN,
+          ingredient: item
+        })
+      }
+    } 
+  })
+
+  {/* все о popup */}
   const modal = (
     <Modal close={closeModal}>
       <OrderDetails />
     </Modal>
   )
+
+  const postAndOpenPopup = () => {
+    dispatch(sendOrderData(BASE_URL + '/orders', burgerConstructorArray, currentBun));
+    openModal()
+  } 
+
+  {/* Вычисление общей стоимости */}
+  const getPrice = () => {
+    const ingredientsTotalCost = burgerConstructorArray.reduce((accumulator, currentValue) => accumulator + currentValue.price, 0);
+    const bunsTotalCost = currentBun.price * 2;
+    return ingredientsTotalCost + bunsTotalCost;
+  };
   
+  const price = React.useMemo(getPrice, [burgerConstructorArray, currentBun]);
+
   return (
     <>
-    <section className={styles.burgerConstructor}>
-        <ConstructorElement
-          type="top"
-          isLocked={true}
-          text="Краторная булка N-200i (верх)"
-          price={1255}
-          thumbnail={"https://code.s3.yandex.net/react/code/bun-02.png"}
-        />
-      <ul className={`${styles.list} custom-scroll`}>
-        {ingredients.map((items) => (
-          <li className={styles.listItem} key={items._id}>
-            <DragIcon type="primary" />
-            <ConstructorElement
-              text={items.name}
-              price={items.price}
-              thumbnail={items.image}
-            />
-          </li>
-        ))}
-      </ul>
-        <ConstructorElement
-          type="bottom"
-          isLocked={true}
-          text="Краторная булка N-200i (низ)"
-          price={1255}
-          thumbnail={"https://code.s3.yandex.net/react/code/bun-02.png"}
-        />
-
+      <section className={styles.burgerConstructor}>
+      <div ref={dropRef}>
+        <div className={styles.bun}>
+          <ConstructorElement
+            type="top"
+            isLocked={true}
+            text={`${currentBun.text} (верх)`}
+            price={currentBun.price}
+            thumbnail={currentBun.thumbnail}
+          />
+        </div>   
+        <ul className={`${styles.list} custom-scroll`}>
+          {burgerConstructorArray.map((item, index) => (
+              <ConstructorIngredient 
+                key={item.key} 
+                name={item.name} 
+                price={item.price} 
+                image={item.image}
+                index={index}
+                id={item.key}
+              />
+          ))}
+        </ul>
+        <div className={styles.bun}>
+          <ConstructorElement
+            type="bottom"
+            isLocked={true}
+            text={`${currentBun.text} (низ)`}
+            price={currentBun.price}
+            thumbnail={currentBun.thumbnail}
+          />
+        </div>
+      </div>
       {/*Стоимость и покупка*/}
       <div className={styles.orderBox}> 
-        <Button htmlType="button" type="primary" size="large" onClick={openModal}>
+        <Button htmlType="button" type="primary" size="large" onClick={postAndOpenPopup}>
           Оформить заказ
         </Button>
         <div className = {styles.priceBox}>
-        <p className="text text_type_digits-medium">610</p>
+        <p className="text text_type_digits-medium">{price}</p>
           <CurrencyIcon type="primary" />
         </div>
       </div>
@@ -68,10 +122,9 @@ function BurgerConstructor (props) {
   )
 }
 
-BurgerConstructor.propTypes = {
-  ingredients: ingredientsArrayType.isRequired
-};
+
 
 export default BurgerConstructor;
+
 
 

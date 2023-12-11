@@ -8,16 +8,18 @@
   padding: 100px 0 3px 16px;
 }
 
-.burgerConstructor > :nth-child(2n+1){
-  margin-right: 17px;
+.bun{
+  margin: 0 16px 0 32px;
 }
 
 .list{
+  display: flex;
+  flex-direction: column;
   padding: 0 8px 0 0;
   margin: 16px 0 16px 0;
   gap: 16px;
   list-style: none;
-  overflow-y: auto;
+  overflow-y: scroll;
   max-height: 464px;
 }
 
